@@ -214,12 +214,21 @@ class Trimmer {
       _outputFormatString = outputFormat.toString();
     }
 
+    String startPointString = startPoint.toString();
+    String startString =
+        startPointString.substring(0, startPointString.length - 3);
+
+    String endPointString = endPoint.toString();
+    String endString = endPointString.substring(0, endPointString.length - 3);
+
     String _trimLengthCommand =
-        '-ss ${startPoint.inSeconds} -i "$_videoPath" -to ${endPoint.inSeconds}';
+        '-ss $startString -i "$_videoPath" -to $endString';
+
+    debugPrint('_trimLengthCommand $_trimLengthCommand');
 
     if (ffmpegCommand == null) {
       _command =
-          '$_trimLengthCommand -c:v libx264 -crf 18 -b:v $videoBitRate -c:a copy';
+          '$_trimLengthCommand -c:v libx264 -crf 18 -b:v $videoBitRate -c:a copy ';
 
       if (outputFormat == FileFormat.gif) {
         if (fpsGIF == null) {
@@ -230,8 +239,11 @@ class Trimmer {
         }
         _command =
             '$_trimLengthCommand -vf "fps=$fpsGIF,scale=$scaleGIF:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 ';
+
+        debugPrint('_command test = $_command');
       }
     } else {
+      debugPrint('working? 2');
       _command = '$_trimLengthCommand $ffmpegCommand ';
       _outputFormatString = customVideoFormat;
     }
@@ -239,6 +251,8 @@ class Trimmer {
     _outputPath = '$path$videoFileName$_outputFormatString';
 
     _command += '"$_outputPath"';
+
+    debugPrint('final command = $_command');
 
     await _flutterFFmpeg.execute(_command).whenComplete(() {
       print('Got value');
