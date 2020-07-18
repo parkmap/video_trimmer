@@ -156,7 +156,7 @@ class Trimmer {
     String customVideoFormat,
     int fpsGIF,
     int scaleGIF,
-    String videoBitRate = '1M'
+    String videoBitRate = '1M',
     String videoFolderName,
     String videoFileName,
     StorageDir storageDir,
