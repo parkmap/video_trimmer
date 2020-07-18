@@ -227,8 +227,7 @@ class Trimmer {
     debugPrint('_trimLengthCommand $_trimLengthCommand');
 
     if (ffmpegCommand == null) {
-      _command =
-          '$_trimLengthCommand -c:v libx264 -crf 18 -b:v $videoBitRate -c:a copy ';
+      _command = '$_trimLengthCommand -c copy ';
 
       if (outputFormat == FileFormat.gif) {
         if (fpsGIF == null) {
@@ -243,7 +242,6 @@ class Trimmer {
         debugPrint('_command test = $_command');
       }
     } else {
-      debugPrint('working? 2');
       _command = '$_trimLengthCommand $ffmpegCommand ';
       _outputFormatString = customVideoFormat;
     }
