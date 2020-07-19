@@ -215,14 +215,14 @@ class Trimmer {
     }
 
     String startPointString = startPoint.toString();
-    String startString =
-        startPointString.substring(0, startPointString.length - 3);
+    // String startString =
+    //     startPointString.substring(0, startPointString.length - 3);
 
     String endPointString = endPoint.toString();
-    String endString = endPointString.substring(0, endPointString.length - 3);
+    // String endString = endPointString.substring(0, endPointString.length - 3);
 
     String _trimLengthCommand =
-        '-ss $startString -i "$_videoPath" -to $endString';
+        '-ss $startPointString -i "$_videoPath" -to $endPointString';
 
     debugPrint('_trimLengthCommand $_trimLengthCommand');
 
